@@ -12,6 +12,11 @@ const Game = () => {
   const [disabled, setDisabled] = useState(false);
   const [score, setScore] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showHints, setShowHints] = useState(false);
+
+  const handleSeeHintClick = () => {
+    setShowHints(!showHints);
+  };
 
   useEffect(() => {
     const fetchCollection = async () => {
@@ -60,6 +65,7 @@ const Game = () => {
   const handleGuessChange = (event) => setGuess(event.target.value);
 
   const handleNextImage = () => {
+    setShowHints(false);
     setIsRevealed(false);
     setGuess("");
     setGuessedImage(questionImage);
@@ -85,6 +91,24 @@ const Game = () => {
             />
           )}
           <div className="card">
+            <div className="hints-container">
+              <div className="hints">
+                Hint:
+                <span className={`${showHints ? "" : "blurred"}`}>
+                  {collection.length > 0
+                    ? collection[count].hints.join(", ")
+                    : ""}
+                </span>
+              </div>
+              <div className="length">
+                Length:
+                <span className={`${showHints ? "" : "blurred"}`}>
+                  {collection.length > 0 ? collection[count].length : ""}{" "}
+                  words
+                </span>
+              </div>
+            </div>
+
             {score !== null && (
               <h3 className="score">Similarity Score: {score}%</h3>
             )}
@@ -95,9 +119,18 @@ const Game = () => {
                 value={guess}
                 onChange={handleGuessChange}
               />
-              <button onClick={handleSubmit} disabled={disabled} className="next-button">
-                Submit
-              </button>
+              <div className="buttons-container">
+                <button onClick={handleSeeHintClick} className="hint-button">
+                  See Hint
+                </button>
+                <button
+                  onClick={handleSubmit}
+                  disabled={disabled}
+                  className="submit-button"
+                >
+                  Submit
+                </button>
+              </div>
             </div>
           </div>
         </div>
