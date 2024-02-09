@@ -174,3 +174,26 @@
 .hint-button:hover {
   background-color: #f7b07c; /* Darker shade for hover */
 }
+
+/* Wrapper around the left side cards */
+.left-cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-basis: 45%; /* Adjust based on your layout */
+}
+
+/* Ensures the guessed image maintains its aspect ratio */
+.card img {
+  width: 100%; /* Make image fill the card */
+  height: auto; /* Maintain aspect ratio */
+  aspect-ratio: 1 / 1; /* Adjust based on your preferred aspect ratio */
+}
+
+/* Adjust the right card container to fill the remaining space */
+.right-card-container {
+  flex-basis: 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

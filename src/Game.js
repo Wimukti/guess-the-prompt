@@ -26,6 +26,10 @@ const Game = () => {
         );
         const data = await response.json();
         setCollection(data);
+        if (data.length > 0) {
+          const initialCount = Math.floor(Math.random() * data.length);
+          setCount(initialCount);
+        }
       } catch (error) {
         console.error("Error fetching collection:", error);
       }
@@ -69,83 +73,95 @@ const Game = () => {
     setIsRevealed(false);
     setGuess("");
     setGuessedImage(questionImage);
-    setCount((prevCount) => (prevCount + 1) % collection.length);
+    setScore(null); // Reset score for the new image
+
+    // Generate a new random index different from the current `count`
+    let nextCount;
+    do {
+      nextCount = Math.floor(Math.random() * collection.length);
+    } while (collection.length > 1 && nextCount === count);
+
+    setCount(nextCount);
   };
 
   return (
     <div className="game-wrapper">
       <h1 className="game-title">Guess the prompt</h1>
       <div className="game">
-        <div className="card-container">
-          {isLoading ? (
-            <div className="card-spinner">
-              <div className="loading-container">
-                <div className="loading-spinner"></div>
+        <div className="left-cards">
+          <div className="card-container">
+            {isLoading ? (
+              <div className="card-spinner">
+                <div className="loading-container">
+                  <div className="loading-spinner"></div>
+                </div>
               </div>
-            </div>
-          ) : (
-            <Card
-              image={guessedImage}
-              title="Submit a Guess!"
-              isRevealed={isRevealed}
-            />
-          )}
-          <div className="card">
-            <div className="hints-container">
-              <div className="hints">
-                Hint:
-                <span className={`${showHints ? "" : "blurred"}`}>
-                  {collection.length > 0
-                    ? collection[count].hints.join(", ")
-                    : ""}
-                </span>
-              </div>
-              <div className="length">
-                Length:
-                <span className={`${showHints ? "" : "blurred"}`}>
-                  {collection.length > 0 ? collection[count].length : ""}{" "}
-                  words
-                </span>
-              </div>
-            </div>
-
-            {score !== null && (
-              <h3 className="score">Similarity Score: {score}%</h3>
-            )}
-            <div className="input-container">
-              <input
-                type="text"
-                placeholder="Enter your guess here!"
-                value={guess}
-                onChange={handleGuessChange}
+            ) : (
+              <Card
+                image={guessedImage}
+                title="Submit a Guess!"
+                isRevealed={isRevealed}
               />
-              <div className="buttons-container">
-                <button onClick={handleSeeHintClick} className="hint-button">
-                  See Hint
-                </button>
-                <button
-                  onClick={handleSubmit}
-                  disabled={disabled}
-                  className="submit-button"
-                >
-                  Submit
-                </button>
+            )}
+            <div className="card">
+              <div className="hints-container">
+                <div className="hints">
+                  Hint:
+                  <span className={`${showHints ? "" : "blurred"}`}>
+                    {collection.length > 0
+                      ? collection[count].hints.join(", ")
+                      : ""}
+                  </span>
+                </div>
+                <div className="length">
+                  Length:
+                  <span className={`${showHints ? "" : "blurred"}`}>
+                    {collection.length > 0 ? collection[count].length : ""}{" "}
+                    words
+                  </span>
+                </div>
+              </div>
+
+              {score !== null && (
+                <h3 className="score">Similarity Score: {score}%</h3>
+              )}
+              <div className="input-container">
+                <input
+                  type="text"
+                  placeholder="Enter your guess here!"
+                  value={guess}
+                  onChange={handleGuessChange}
+                />
+                <div className="buttons-container">
+                  <button onClick={handleSeeHintClick} className="hint-button">
+                    See Hint
+                  </button>
+                  <button
+                    onClick={handleSubmit}
+                    disabled={disabled}
+                    className="submit-button"
+                  >
+                    Submit
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="card-container">
-          {collection.length > 0 && (
-            <Card
-              image={collection[count].imageUrl}
-              title="Given Image"
-              isRevealed={true}
-            />
-          )}
-          <div className="input-container">
-            <button onClick={handleNextImage} className="next-button">
-              Next Image
-            </button>
+        <div className="right-card-container">
+          <div className="card-container">
+            {collection.length > 0 && (
+              <Card
+                image={collection[count].imageUrl}
+                title="Given Image"
+                isRevealed={true}
+              />
+            )}
+            <div className="input-container">
+              <button onClick={handleNextImage} className="next-button">
+                Next Image
+              </button>
+            </div>
           </div>
         </div>
       </div>
