@@ -1,0 +1,135 @@
+.game-wrapper {
+  font-family: "Comic Sans MS", "Chalkboard SE", cursive;
+  text-align: center;
+  background-color: #ffeff1;
+  min-height: 100vh;
+  padding: 40px 0;
+}
+
+.game-title {
+  color: #ffabab;
+  margin-bottom: 20px;
+  font-size: 40px;
+}
+
+.game {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 20px;
+}
+
+.card-container {
+  flex-basis: 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-spinner {
+  background-color: #ffe0f0;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  padding: 20px;
+  width: 512px;
+  height: 512px;
+  margin: 20px;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.card {
+  background-color: #ffe0f0;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  padding: 20px;
+  width: 512px;
+  margin: 20px;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2);
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.input-container input {
+  width: 80%;
+  padding: 15px;
+  margin: 10px 0;
+  border: 2px solid #ffabab;
+  border-radius: 15px;
+  font-size: 18px;
+  background-color: #fff7e6;
+  color: #5c3d2e;
+}
+
+.input-container button {
+  padding: 15px 20px;
+  background-color: #ffabab;
+  color: #5c3d2e;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.input-container button:hover {
+  background-color: #ffccd5;
+}
+
+.input-container button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px; /* Adjust height as necessary */
+}
+
+.loading-spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #ffabab;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.score {
+  color: #5c3d2e;
+  margin: 15px 0;
+}
+
+.next-button {
+  background-color: #ffabab;
+  padding: 15px 30px;
+  font-size: 18px;
+  color: #fff;
+  border-radius: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.next-button:hover {
+  background-color: #ffccd5;
+}

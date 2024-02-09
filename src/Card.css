@@ -1,0 +1,17 @@
+/* Card.css */
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 512px;
+    margin: auto;
+    padding: 30px;
+    color: #5c3d2e;
+  }
+  
+  .card-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  /* Add styles for flipped state if needed */
+  
